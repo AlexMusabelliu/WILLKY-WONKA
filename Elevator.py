@@ -3,12 +3,13 @@ from random import randint
 #Finds shortest available path for one elevator: |*|
 #Finds shortest available path for multiple elevators: |*|
 #Adds delay to command to prevent bumping with more than minEdge(n) elevators: |*|
+#Add way to carry out commands | |
 #Able to queue command: | |
 #---STAGE 2---
 #Works with different weights: | |
 #
 
-
+'''
 t = Turtle('circle')
 t2 = Turtle('circle')
 t3 = Turtle('circle')
@@ -19,10 +20,10 @@ t3.ht()
 
 s = Screen()
 s.tracer(False)
-
+'''
 allPoints = []
 character = ord('a') - 1
-
+'''
 def quit():
     s.bye()
 
@@ -64,7 +65,7 @@ def startup():
     t.penup()
     
     xmove()
-
+'''
 def xmove():
     tok = 1
     global finish, start
@@ -130,11 +131,7 @@ class Elevator():
                 for xconn in Serv.allConn:
                     #print(Serv.allMove)
                     curUsedPath = []
-                    for zed in Serv.allMove:
-                        try:
-                            curUsedPath.append(zed[0][len(x[0]) - 1])
-                        except:
-                            pass
+                    
                     #print(Serv.allMove)
                     #print(curUsedPath)    
                     if xconn[0] == x[len(x) - 1][1] and xconn[1] not in usedConn and xconn not in curUsedPath:
@@ -159,7 +156,7 @@ class Elevator():
         #delay if last move == another last move
         for x in Serv.allMove:
             if ans[0][len(ans[0]) - 1][1] == x[0][len(x[0]) - 1][1] and len(ans[0]) == len(x[0]):
-                ans = (((str(ans[0][0][0]) * 2,) + ans[0][0:len(ans[0]) - 1] + (ans[0][len(ans[0]) - 1],)), ans[1])
+                ans = (((str(ans[0][0][0]) * 2,) + ans[0][0:len(ans[0]) - 1] + (ans[0][len(ans[0]) - 1],)), ans[1] + 1)
         
         #remove our path from our allConn
         if start == end:
@@ -176,25 +173,26 @@ Elev2 = Elevator()
 Elev3 = Elevator()
 
 allElev = [Elev, Elev2, Elev3]
-      
-s.listen()
-s.onkey(quit,'Escape')
+'''   
+#s.listen()
+#s.onkey(quit,'Escape')
 #startup()
+'''
+CHAR_LIMIT = 11
 
 allPrint = []
-first = [chr(randint(0, 12) + ord('a')), chr(randint(0, 12) + ord('a')), chr(randint(0, 12) + ord('a'))]
+first = [chr(randint(0, CHAR_LIMIT) + ord('a')), chr(randint(0, CHAR_LIMIT) + ord('a')), chr(randint(0, CHAR_LIMIT) + ord('a'))]
 #print(chr(11 + ord('a')))
 #print(first)
-for x in range(5):
+for x in range(333):
+    Serv.allMove = []
     for y in range(3):
         
-        last = chr(randint(0, 12) + ord('a'))
+        last = chr(randint(0, CHAR_LIMIT) + ord('a'))
         
-        #print(first[y], last)
-        allPrint.append((y + 1, allElev[y].move(first[y], last)))
+        print(first[y], last)
+        tprint = print((y + 1, allElev[y].move(first[y], last)))
+        allPrint.append(tprint)
         
         first[y] = last
-#print(allPrint)    
-for x in allPrint:
-    print(x)
   
